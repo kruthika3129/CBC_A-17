@@ -20,13 +20,13 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
 
     const context = canvas.getContext('2d');
     if (!context) return;
-    
+
     contextRef.current = context;
-    
+
     const observer = new IntersectionObserver((entries) => {
       setIsInViewport(entries[0].isIntersecting);
     }, { threshold: 0.1 });
-    
+
     observer.observe(canvas);
 
     const resizeCanvas = () => {
@@ -44,12 +44,12 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
       const height = canvas.height;
       // Reduce number of points on mobile for better performance
       const numberOfPoints = isMobile ? 8 : 15;
-      
+
       pointsRef.current = [];
-      
-      // The Mono theme colors
-      const colors = ['#403E43', '#8E9196', '#8A898C', '#9F9EA1'];
-      
+
+      // Theme-aware colors
+      const colors = ['#FFFFFF', '#F5F5F5', '#EFEFEF', '#E8E8E8'];
+
       for (let i = 0; i < numberOfPoints; i++) {
         pointsRef.current.push({
           x: Math.random() * width,
@@ -61,16 +61,16 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
         });
       }
     };
-    
+
     const drawPoints = () => {
       if (!contextRef.current || !canvas) return;
-      
+
       contextRef.current.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       pointsRef.current.forEach(point => {
         contextRef.current!.beginPath();
         const gradient = contextRef.current!.createRadialGradient(
-          point.x, point.y, 0, 
+          point.x, point.y, 0,
           point.x, point.y, point.radius
         );
         gradient.addColorStop(0, `${point.color}30`);
@@ -80,21 +80,21 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
         contextRef.current!.fill();
       });
     };
-    
+
     const updatePoints = () => {
       if (!canvas) return;
-      
+
       pointsRef.current.forEach(point => {
         point.x += point.vx;
         point.y += point.vy;
-        
+
         if (point.x < 0) point.x = canvas.width;
         if (point.x > canvas.width) point.x = 0;
         if (point.y < 0) point.y = canvas.height;
         if (point.y > canvas.height) point.y = 0;
       });
     };
-    
+
     const animate = () => {
       if (isInViewport) {
         updatePoints();
@@ -102,12 +102,12 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
       }
       animationFrameRef.current = requestAnimationFrame(animate);
     };
-    
+
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-    
+
     animationFrameRef.current = requestAnimationFrame(animate);
-    
+
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       observer.disconnect();
@@ -116,10 +116,10 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
       }
     };
   }, [isMobile, isInViewport]);
-  
+
   return (
-    <canvas 
-      ref={canvasRef} 
+    <canvas
+      ref={canvasRef}
       className={`absolute top-0 left-0 w-full h-full -z-10 ${className || ''}`}
     />
   );

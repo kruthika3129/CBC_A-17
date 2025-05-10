@@ -22,6 +22,11 @@ const featuredItems: MenuItemType[] = [
     description: "Document your thoughts and feelings"
   },
   {
+    title: "Webcam",
+    href: "/webcam",
+    description: "Capture images with your camera"
+  },
+  {
     title: "About",
     href: "/about",
     description: "Learn more about PsyTrack"
@@ -62,7 +67,7 @@ export function NavbarMenu({ className }: { className?: string }) {
             setIsMenuOpen(!isMenuOpen);
             if (!isMenuOpen) setActiveItem(featuredItems[0]);
           }}
-          className="px-4 py-2 rounded-md hover:bg-white/10 transition-colors text-sm font-medium flex items-center"
+          className="px-4 py-2 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition-colors text-sm font-medium flex items-center"
         >
           Features
         </button>
@@ -75,7 +80,7 @@ export function NavbarMenu({ className }: { className?: string }) {
             setIsMenuOpen(!isMenuOpen);
             if (!isMenuOpen) setActiveItem(resourceItems[0]);
           }}
-          className="px-4 py-2 rounded-md hover:bg-white/10 transition-colors text-sm font-medium flex items-center"
+          className="px-4 py-2 rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition-colors text-sm font-medium flex items-center"
         >
           Resources
         </button>
@@ -84,7 +89,7 @@ export function NavbarMenu({ className }: { className?: string }) {
       {isMenuOpen && (
         <div
           onMouseLeave={() => setIsMenuOpen(false)}
-          className="absolute top-full left-1/2 transform -translate-x-1/2 w-[350px] md:w-[500px] mt-2 glass-morphism neo-blur rounded-xl overflow-hidden z-50"
+          className="absolute top-full left-1/2 transform -translate-x-1/2 w-[350px] md:w-[500px] mt-2 glass-morphism rounded-xl overflow-hidden z-50"
         >
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -93,7 +98,7 @@ export function NavbarMenu({ className }: { className?: string }) {
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className="flex w-full"
           >
-            <div className="w-1/3 bg-black/20 p-4">
+            <div className="w-1/3 bg-black/5 dark:bg-black/20 p-4">
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-medium opacity-60 mb-1">Features</p>
                 {featuredItems.map((item) => (
@@ -104,8 +109,8 @@ export function NavbarMenu({ className }: { className?: string }) {
                     className={cn(
                       "flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium transition-colors w-full text-left",
                       activeItem?.title === item.title
-                        ? "bg-white/20 text-white"
-                        : "hover:bg-white/10 text-white/70 hover:text-white"
+                        ? "bg-black/10 dark:bg-white/20 text-foreground dark:text-white"
+                        : "hover:bg-black/5 dark:hover:bg-white/10 text-foreground/70 dark:text-white/70 hover:text-foreground dark:hover:text-white"
                     )}
                   >
                     <span>{item.title}</span>
@@ -121,8 +126,8 @@ export function NavbarMenu({ className }: { className?: string }) {
                       className={cn(
                         "flex items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium transition-colors w-full text-left",
                         activeItem?.title === item.title
-                          ? "bg-white/20 text-white"
-                          : "hover:bg-white/10 text-white/70 hover:text-white"
+                          ? "bg-black/10 dark:bg-white/20 text-foreground dark:text-white"
+                          : "hover:bg-black/5 dark:hover:bg-white/10 text-foreground/70 dark:text-white/70 hover:text-foreground dark:hover:text-white"
                       )}
                     >
                       <span>{item.title}</span>
@@ -131,7 +136,7 @@ export function NavbarMenu({ className }: { className?: string }) {
                 </div>
               </div>
             </div>
-            
+
             <div className="w-2/3 p-6">
               {activeItem && (
                 <div className="w-full h-full">
@@ -146,7 +151,7 @@ export function NavbarMenu({ className }: { className?: string }) {
                     <Link
                       to={activeItem.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className="mt-4 px-4 py-2 bg-gradient-to-r from-[#403E43] to-[#8A898C] rounded-md text-white text-sm font-medium hover:opacity-90 transition-opacity inline-block w-max"
+                      className="mt-4 px-4 py-2 bg-gradient-to-r from-[#403E43] to-[#8A898C] dark:from-[#000000] dark:to-[#333333] rounded-md text-white dark:text-white text-sm font-mono hover:opacity-90 transition-opacity inline-block w-max"
                     >
                       Explore {activeItem.title}
                     </Link>

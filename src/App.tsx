@@ -11,21 +11,22 @@ import Dashboard from "./pages/Dashboard";
 import Journal from "./pages/Journal";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import WebcamDemo from "./pages/WebcamDemo";
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
     // Simulate loading time - but make it shorter for better UX
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
-    
+
     return () => clearTimeout(timer);
   }, []);
-  
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-psytrack-purple/20 to-psytrack-light-purple/30 dark:from-psytrack-deep-purple/30 dark:to-psytrack-purple/20">
@@ -38,9 +39,9 @@ const App = () => {
       </div>
     );
   }
-  
+
   return (
-    <ThemeProvider defaultTheme="system" storageKey="psytrack-theme">
+    <ThemeProvider storageKey="psytrack-theme">
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Router>
@@ -51,6 +52,7 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/journal" element={<Journal />} />
               <Route path="/about" element={<About />} />
+              <Route path="/webcam" element={<WebcamDemo />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>

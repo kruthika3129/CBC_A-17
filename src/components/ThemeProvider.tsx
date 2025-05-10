@@ -12,11 +12,20 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   }, [])
 
   if (!mounted) {
-    // Add a small delay to avoid flash of unstyled content
+    // Avoid flash of unstyled content
     return <div style={{ visibility: "hidden" }}>{children}</div>
   }
 
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem={false}
+      {...props}
+    >
+      {children}
+    </NextThemesProvider>
+  )
 }
 
 // Export the useTheme hook to be used throughout the application
