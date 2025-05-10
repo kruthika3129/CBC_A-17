@@ -1,5 +1,6 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface PulseOrbProps {
   className?: string;
@@ -7,10 +8,22 @@ interface PulseOrbProps {
 
 const PulseOrb: React.FC<PulseOrbProps> = ({ className }) => {
   const orbRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  const [isInViewport, setIsInViewport] = useState(false);
   
   useEffect(() => {
     const orb = orbRef.current;
     if (!orb) return;
+    
+    // Performance optimization - only animate when visible
+    const observer = new IntersectionObserver((entries) => {
+      setIsInViewport(entries[0].isIntersecting);
+    }, { threshold: 0.1 });
+    
+    observer.observe(orb);
+    
+    // Skip mouse tracking on mobile devices for better performance
+    if (isMobile || !isInViewport) return;
     
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
@@ -22,23 +35,41 @@ const PulseOrb: React.FC<PulseOrbProps> = ({ className }) => {
       const distX = clientX - centerX;
       const distY = clientY - centerY;
       
-      // Move the orb slightly toward the cursor
-      orb.style.transform = `translate(${distX * 0.02}px, ${distY * 0.02}px)`;
+      // Throttled and optimized movement
+      requestAnimationFrame(() => {
+        // Move the orb slightly toward the cursor (reduced effect for better performance)
+        orb.style.transform = `translate(${distX * 0.01}px, ${distY * 0.01}px)`;
+      });
     };
     
-    document.addEventListener('mousemove', handleMouseMove);
+    const throttledMouseMove = throttle(handleMouseMove, 16); // ~60fps
+    
+    document.addEventListener('mousemove', throttledMouseMove);
     
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mousemove', throttledMouseMove);
+      observer.disconnect();
     };
-  }, []);
+  }, [isMobile, isInViewport]);
   
   return (
     <div 
       ref={orbRef}
-      className={`orb transition-transform duration-500 ${className || ''}`}
+      className={`orb transition-transform duration-500 ease-out ${className || ''}`}
     />
   );
 };
+
+// Utility function for throttling events
+function throttle(func: Function, limit: number) {
+  let inThrottle: boolean;
+  return function(this: any, ...args: any[]) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+}
 
 export default PulseOrb;

@@ -18,10 +18,10 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    // Simulate loading time
+    // Simulate loading time - but make it shorter for better UX
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 800);
     
     return () => clearTimeout(timer);
   }, []);
@@ -32,7 +32,7 @@ const App = () => {
         <div className="relative">
           <div className="w-16 h-16 rounded-full border-4 border-psytrack-purple border-t-transparent animate-spin"></div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-psytrack-purple text-lg">PSY</span>
+            <span className="text-psytrack-purple text-lg font-bold">PSY</span>
           </div>
         </div>
       </div>
@@ -40,8 +40,8 @@ const App = () => {
   }
   
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system" storageKey="psytrack-theme">
+    <ThemeProvider defaultTheme="system" storageKey="psytrack-theme">
+      <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Router>
             <Toaster />
@@ -55,8 +55,8 @@ const App = () => {
             </Routes>
           </Router>
         </TooltipProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 

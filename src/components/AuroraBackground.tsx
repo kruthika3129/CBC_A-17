@@ -1,6 +1,6 @@
 
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { useEffect, useRef, useState } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface AuroraBackgroundProps {
   className?: string;
@@ -10,6 +10,9 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
   const pointsRef = useRef<Array<{ x: number; y: number; vx: number; vy: number; radius: number; color: string }>>([]);
+  const [isInViewport, setIsInViewport] = useState(false);
+  const isMobile = useIsMobile();
+  const animationFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -20,16 +23,27 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
     
     contextRef.current = context;
     
+    const observer = new IntersectionObserver((entries) => {
+      setIsInViewport(entries[0].isIntersecting);
+    }, { threshold: 0.1 });
+    
+    observer.observe(canvas);
+
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      context.scale(dpr, dpr);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
       initPoints();
     };
 
     const initPoints = () => {
       const width = canvas.width;
       const height = canvas.height;
-      const numberOfPoints = 15;
+      // Reduce number of points on mobile for better performance
+      const numberOfPoints = isMobile ? 8 : 15;
       
       pointsRef.current = [];
       
@@ -40,9 +54,9 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
         pointsRef.current.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          radius: Math.random() * 100 + 50,
+          vx: (Math.random() - 0.5) * 0.3, // Reduced velocity for smoother animation
+          vy: (Math.random() - 0.5) * 0.3,
+          radius: Math.random() * (isMobile ? 80 : 100) + (isMobile ? 30 : 50),
           color: colors[Math.floor(Math.random() * colors.length)]
         });
       }
@@ -82,26 +96,31 @@ const AuroraBackground: React.FC<AuroraBackgroundProps> = ({ className }) => {
     };
     
     const animate = () => {
-      updatePoints();
-      drawPoints();
-      animationFrameId = requestAnimationFrame(animate);
+      if (isInViewport) {
+        updatePoints();
+        drawPoints();
+      }
+      animationFrameRef.current = requestAnimationFrame(animate);
     };
     
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
     
-    let animationFrameId = requestAnimationFrame(animate);
+    animationFrameRef.current = requestAnimationFrame(animate);
     
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
-  }, []);
+  }, [isMobile, isInViewport]);
   
   return (
     <canvas 
       ref={canvasRef} 
-      className={`absolute top-0 left-0 w-full h-full -z-10 opacity-60 ${className || ''}`}
+      className={`absolute top-0 left-0 w-full h-full -z-10 ${className || ''}`}
     />
   );
 };
