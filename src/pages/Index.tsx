@@ -5,6 +5,7 @@ import HeroSection from '@/components/HeroSection';
 import EmotionTimeline from '@/components/EmotionTimeline';
 import JournalInput from '@/components/JournalInput';
 import TherapistPanel from '@/components/TherapistPanel';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -36,7 +37,9 @@ const Index = () => {
             
             <JournalInput className={`h-full transition-all duration-700 transform ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`} style={{ transitionDelay: '300ms' }} />
+            }`} 
+            /* Remove the inline style prop and use a CSS class with a delay instead */
+            />
           </div>
         </div>
       </section>

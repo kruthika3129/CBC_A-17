@@ -12,9 +12,10 @@ const sentimentEmojis = [
 
 interface JournalInputProps {
   className?: string;
+  style?: React.CSSProperties; // Add style prop to the interface
 }
 
-const JournalInput: React.FC<JournalInputProps> = ({ className }) => {
+const JournalInput: React.FC<JournalInputProps> = ({ className, style }) => {
   const [journalText, setJournalText] = useState('');
   const [selectedSentiment, setSelectedSentiment] = useState<number | null>(null);
   
@@ -35,7 +36,7 @@ const JournalInput: React.FC<JournalInputProps> = ({ className }) => {
   };
   
   return (
-    <Card className={`glass ${className || ''}`}>
+    <Card className={`glass ${className || ''}`} style={style}>
       <CardHeader>
         <CardTitle className="text-xl">Journal Entry</CardTitle>
       </CardHeader>
