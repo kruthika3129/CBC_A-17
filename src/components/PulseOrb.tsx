@@ -55,7 +55,7 @@ const PulseOrb: React.FC<PulseOrbProps> = ({ className }) => {
   return (
     <div 
       ref={orbRef}
-      className={`orb transition-transform duration-500 ease-out ${className || ''}`}
+      className={`transition-transform duration-500 ease-out ${className || ''}`}
     />
   );
 };

@@ -19,7 +19,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       
-      <section className="py-16 px-4 bg-[#222222]">
+      <section className="py-16 px-4 bg-[#222222] relative z-10">
         <div className="container mx-auto">
           <h2 className={`text-3xl md:text-4xl font-bold text-center mb-12 transition-all duration-700 transform ${
             isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
@@ -35,9 +35,9 @@ const Index = () => {
               <TherapistPanel />
             </div>
             
-            <JournalInput className={`h-full transition-all duration-700 transform animate-delay-300 ${
+            <JournalInput className={`h-full transition-all duration-700 transform ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            }`} />
+            }`} style={{ transitionDelay: '300ms' }} />
           </div>
         </div>
       </section>

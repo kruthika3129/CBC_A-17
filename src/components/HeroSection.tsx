@@ -87,8 +87,8 @@ const HeroSection = () => {
       <AuroraBackground className="opacity-50" />
       
       {/* Reduced number of orbs for better performance */}
-      <PulseOrb className="bg-[#403E43]/30 w-[300px] h-[300px] md:w-[500px] md:h-[500px] -top-32 -left-32 md:-left-64" />
-      <PulseOrb className="bg-[#9F9EA1]/10 w-[250px] h-[250px] md:w-[400px] md:h-[400px] bottom-0 right-0" />
+      <PulseOrb className="absolute bg-[#403E43]/30 w-[300px] h-[300px] md:w-[500px] md:h-[500px] -top-32 -left-32 md:-left-64" />
+      <PulseOrb className="absolute bg-[#9F9EA1]/10 w-[250px] h-[250px] md:w-[400px] md:h-[400px] bottom-0 right-0" />
       
       <LazyMotion features={domAnimation}>
         <m.div 

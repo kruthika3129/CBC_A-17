@@ -39,14 +39,14 @@ const Navbar = () => {
     }`}>
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded-full bg-psytrack-purple flex items-center justify-center">
+          <div className="h-8 w-8 rounded-full bg-[#403E43] flex items-center justify-center">
             <span className="text-white font-bold">P</span>
           </div>
           <span className="text-xl font-bold tracking-tighter">PsyTrack</span>
         </Link>
         
         {/* Desktop Navigation with NavbarMenu */}
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center space-x-2">
           <NavbarMenu />
           <Link to="/" className="px-4 py-2 rounded-md hover:bg-white/10 transition-colors">
             Home
@@ -78,7 +78,7 @@ const Navbar = () => {
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 mr-4">
+            <DropdownMenuContent className="w-56 mr-4 bg-black/80 backdrop-blur-md border border-white/10">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Profile</DropdownMenuItem>
@@ -102,7 +102,7 @@ const Navbar = () => {
       
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden glass animate-fade-in absolute top-full left-0 w-full px-4 py-4 flex flex-col space-y-2">
+        <div className="md:hidden glass-morphism neo-blur animate-fade-in absolute top-full left-0 w-full px-4 py-4 flex flex-col space-y-2">
           <Link to="/" className="px-4 py-2 rounded-md hover:bg-white/10 transition-colors"
             onClick={() => setMobileMenuOpen(false)}>
             Home
