@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Sun, Moon, Menu, User } from 'lucide-react';
 import { useTheme } from '@/components/ThemeProvider';
+import NavbarMenu from '@/components/NavbarMenu';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,21 +45,16 @@ const Navbar = () => {
           <span className="text-xl font-bold tracking-tighter">PsyTrack</span>
         </Link>
         
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
+        {/* Desktop Navigation with NavbarMenu */}
+        <div className="hidden md:flex items-center">
+          <NavbarMenu />
           <Link to="/" className="px-4 py-2 rounded-md hover:bg-white/10 transition-colors">
             Home
-          </Link>
-          <Link to="/dashboard" className="px-4 py-2 rounded-md hover:bg-white/10 transition-colors">
-            Dashboard
-          </Link>
-          <Link to="/journal" className="px-4 py-2 rounded-md hover:bg-white/10 transition-colors">
-            Journal
           </Link>
           <Link to="/about" className="px-4 py-2 rounded-md hover:bg-white/10 transition-colors">
             About
           </Link>
-        </nav>
+        </div>
         
         <div className="flex items-center space-x-2">
           <Button
@@ -123,6 +119,32 @@ const Navbar = () => {
             onClick={() => setMobileMenuOpen(false)}>
             About
           </Link>
+          <div className="p-2">
+            <h3 className="px-4 py-2 font-medium">Features</h3>
+            <Link to="/dashboard" className="px-6 py-2 block rounded-md hover:bg-white/10 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}>
+              Dashboard
+            </Link>
+            <Link to="/journal" className="px-6 py-2 block rounded-md hover:bg-white/10 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}>
+              Journal
+            </Link>
+          </div>
+          <div className="p-2">
+            <h3 className="px-4 py-2 font-medium">Resources</h3>
+            <Link to="#mental-health-tips" className="px-6 py-2 block rounded-md hover:bg-white/10 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}>
+              Mental Health Tips
+            </Link>
+            <Link to="#guided-sessions" className="px-6 py-2 block rounded-md hover:bg-white/10 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}>
+              Guided Sessions
+            </Link>
+            <Link to="#community" className="px-6 py-2 block rounded-md hover:bg-white/10 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}>
+              Community
+            </Link>
+          </div>
         </div>
       )}
     </header>

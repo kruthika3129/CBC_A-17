@@ -28,7 +28,7 @@ const App = () => {
   
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-psytrack-purple/20 to-psytrack-light-purple/30">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-psytrack-purple/20 to-psytrack-light-purple/30 dark:from-psytrack-deep-purple/30 dark:to-psytrack-purple/20">
         <div className="relative">
           <div className="w-16 h-16 rounded-full border-4 border-psytrack-purple border-t-transparent animate-spin"></div>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -58,6 +58,6 @@ const App = () => {
       </ThemeProvider>
     </QueryClientProvider>
   );
-};
+}
 
 export default App;
