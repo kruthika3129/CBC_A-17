@@ -48,7 +48,7 @@ const HeroSection = () => {
     const buttons = document.querySelectorAll('.magnetic-button');
     
     buttons.forEach(button => {
-      button.addEventListener('mousemove', (e) => {
+      button.addEventListener('mousemove', (e: MouseEvent) => {
         const rect = (button as HTMLElement).getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
