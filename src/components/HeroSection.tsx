@@ -1,14 +1,16 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { BackgroundPaths } from '@/components/ui/background-paths';
+import { BackgroundBeams } from '@/components/ui/background-beams';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { LazyMotion, domAnimation, m, motion } from 'framer-motion';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
@@ -82,10 +84,8 @@ const HeroSection = () => {
 
   return (
     <div className="relative bg-white dark:bg-black">
-      {/* Background paths animation */}
-      <div className="absolute inset-0 w-full h-full">
-        <BackgroundPaths title="" />
-      </div>
+      {/* Background beams animation */}
+      <BackgroundBeams className="opacity-30" />
 
       <div ref={sectionRef} className="relative h-screen flex items-center justify-center">
         <LazyMotion features={domAnimation}>
@@ -95,49 +95,51 @@ const HeroSection = () => {
             animate="visible"
             variants={containerVariants}
           >
-          <m.div variants={itemVariants} className="max-w-3xl mx-auto">
-            <h1 ref={headlineRef} className="text-3xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-4 md:mb-6 text-black dark:text-white">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-600 dark:from-white dark:to-gray-400">PsyTrack</span>
-              <span className="block text-2xl md:text-3xl lg:text-5xl mt-2 text-gray-700 dark:text-gray-300">Emotional Intelligence Interface</span>
-            </h1>
+            <m.div variants={itemVariants} className="max-w-3xl mx-auto">
+              <h1 ref={headlineRef} className="text-3xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-4 md:mb-6 text-black dark:text-white">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-600 dark:from-white dark:to-gray-400">PsyTrack</span>
+                <span className="block text-2xl md:text-3xl lg:text-5xl mt-2 text-gray-700 dark:text-gray-300">Emotional Intelligence Interface</span>
+              </h1>
 
-            <p ref={descriptionRef} className="mx-auto max-w-lg md:max-w-2xl text-base md:text-lg lg:text-xl mb-6 md:mb-8 text-gray-600 dark:text-gray-400">
-              A supportive space for autism and mental health awareness.
-              Track emotions, journal thoughts, and connect with therapists in a calm,
-              expressive environment.
-            </p>
+              <p ref={descriptionRef} className="mx-auto max-w-lg md:max-w-2xl text-base md:text-lg lg:text-xl mb-6 md:mb-8 text-gray-600 dark:text-gray-400">
+                A supportive space for autism and mental health awareness.
+                Track emotions, journal thoughts, and connect with therapists in a calm,
+                expressive environment.
+              </p>
+            </m.div>
+
+            <m.div
+              ref={buttonsRef}
+              className="flex flex-wrap justify-center gap-3 md:gap-6 mb-10 mt-8"
+              variants={itemVariants}
+            >
+              <div className="group relative bg-gradient-to-b from-black/10 to-white/10 dark:from-white/10 dark:to-black/10 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <Button
+                  size={isMobile ? "default" : "lg"}
+                  variant="ghost"
+                  className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md bg-white/95 hover:bg-white/100 dark:bg-black/95 dark:hover:bg-black/100 text-black dark:text-white transition-all duration-300 group-hover:-translate-y-0.5 border border-black/10 dark:border-white/10 hover:shadow-md dark:hover:shadow-neutral-800/50 font-mono"
+                  onClick={() => navigate('/dashboard')}
+                >
+                  <span className="opacity-90 group-hover:opacity-100 transition-opacity">Get Started</span>
+                  <span className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 transition-all duration-300">→</span>
+                </Button>
+              </div>
+
+              <div className="group relative bg-gradient-to-b from-black/10 to-white/10 dark:from-white/10 dark:to-black/10 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <Button
+                  variant="ghost"
+                  size={isMobile ? "default" : "lg"}
+                  className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md bg-white/5 hover:bg-white/10 dark:bg-black/5 dark:hover:bg-black/10 text-black dark:text-white transition-all duration-300 group-hover:-translate-y-0.5 border border-black/10 dark:border-white/10 hover:shadow-md dark:hover:shadow-neutral-800/50 font-mono"
+                  onClick={() => navigate('/dashboard')}
+                >
+                  <span className="opacity-90 group-hover:opacity-100 transition-opacity">Demo Therapy Mode</span>
+                  <span className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 transition-all duration-300">→</span>
+                </Button>
+              </div>
+            </m.div>
+
           </m.div>
-
-          <m.div
-            ref={buttonsRef}
-            className="flex flex-wrap justify-center gap-3 md:gap-6 mb-10 mt-8"
-            variants={itemVariants}
-          >
-            <div className="group relative bg-gradient-to-b from-black/10 to-white/10 dark:from-white/10 dark:to-black/10 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <Button
-                size={isMobile ? "default" : "lg"}
-                variant="ghost"
-                className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md bg-white/95 hover:bg-white/100 dark:bg-black/95 dark:hover:bg-black/100 text-black dark:text-white transition-all duration-300 group-hover:-translate-y-0.5 border border-black/10 dark:border-white/10 hover:shadow-md dark:hover:shadow-neutral-800/50 font-mono"
-              >
-                <span className="opacity-90 group-hover:opacity-100 transition-opacity">Get Started</span>
-                <span className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 transition-all duration-300">→</span>
-              </Button>
-            </div>
-
-            <div className="group relative bg-gradient-to-b from-black/10 to-white/10 dark:from-white/10 dark:to-black/10 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <Button
-                variant="ghost"
-                size={isMobile ? "default" : "lg"}
-                className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md bg-white/5 hover:bg-white/10 dark:bg-black/5 dark:hover:bg-black/10 text-black dark:text-white transition-all duration-300 group-hover:-translate-y-0.5 border border-black/10 dark:border-white/10 hover:shadow-md dark:hover:shadow-neutral-800/50 font-mono"
-              >
-                <span className="opacity-90 group-hover:opacity-100 transition-opacity">Demo Therapy Mode</span>
-                <span className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 transition-all duration-300">→</span>
-              </Button>
-            </div>
-          </m.div>
-
-        </m.div>
-      </LazyMotion>
+        </LazyMotion>
       </div>
 
       {/* Feature cards section - positioned below hero content */}

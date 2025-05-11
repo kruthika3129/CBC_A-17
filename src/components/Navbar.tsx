@@ -34,9 +34,8 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled ? 'py-3 glass shadow-md' : 'py-5 bg-transparent'
-    }`}>
+    <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'py-3 glass shadow-md' : 'py-5 bg-transparent'
+      }`}>
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded-full bg-[#403E43] flex items-center justify-center">
@@ -149,7 +148,7 @@ const Navbar = () => {
           </div>
           <div className="p-2">
             <h3 className="px-4 py-2 font-medium">Resources</h3>
-            <Link to="#mental-health-tips" className="px-6 py-2 block rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+            <Link to="/mental-health-tips" className="px-6 py-2 block rounded-md hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
               onClick={() => setMobileMenuOpen(false)}>
               Mental Health Tips
             </Link>

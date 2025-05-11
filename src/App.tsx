@@ -12,6 +12,7 @@ import Journal from "./pages/Journal";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import WebcamDemo from "./pages/WebcamDemo";
+import MentalHealthTips from "./pages/MentalHealthTips";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ const App = () => {
               <Route path="/journal" element={<Journal />} />
               <Route path="/about" element={<About />} />
               <Route path="/webcam" element={<WebcamDemo />} />
+              <Route path="/mental-health-tips" element={<MentalHealthTips />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>

@@ -6,7 +6,8 @@ import EmotionTimeline from '@/components/EmotionTimeline';
 import TherapistPanel from '@/components/TherapistPanel';
 import AlertSystem from '@/components/AlertSystem';
 import JournalInput from '@/components/JournalInput';
-import MediaCapture from '@/components/MediaCapture';
+import FaceApiDetection from '@/components/FaceApiDetection';
+import EthicalAIDashboard from '@/components/EthicalAIDashboard';
 import AIService from '@/services/aiService';
 import { EmotionState } from '@/lib/aiCore';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -14,6 +15,9 @@ import ErrorFallback from '@/components/ErrorFallback';
 
 const Dashboard = () => {
   const [currentEmotion, setCurrentEmotion] = useState<EmotionState | null>(null);
+  const [currentText, setCurrentText] = useState<string>('');
+  const [faceDetectionData, setFaceDetectionData] = useState<any>(null);
+  const [eyeTrackingData, setEyeTrackingData] = useState<any>(null);
 
   // Initialize AI service
   useEffect(() => {
@@ -52,7 +56,11 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <EmotionTimeline />
           <TherapistPanel />
-          <MediaCapture onEmotionDetected={setCurrentEmotion} />
+          <FaceApiDetection
+            onEmotionDetected={setCurrentEmotion}
+            onFaceDetectionData={setFaceDetectionData}
+            onEyeTrackingData={setEyeTrackingData}
+          />
         </div>
 
 
@@ -68,15 +76,15 @@ const Dashboard = () => {
                   <div className="flex items-center gap-3">
                     <span className="text-4xl">
                       {currentEmotion.mood === 'happy' ? '😊' :
-                       currentEmotion.mood === 'sad' ? '😢' :
-                       currentEmotion.mood === 'angry' ? '😠' :
-                       currentEmotion.mood === 'anxious' ? '😰' :
-                       currentEmotion.mood === 'calm' ? '😌' :
-                       currentEmotion.mood === 'excited' ? '😃' :
-                       currentEmotion.mood === 'tired' ? '😴' :
-                       currentEmotion.mood === 'frustrated' ? '😤' :
-                       currentEmotion.mood === 'focused' ? '🧐' :
-                       currentEmotion.mood === 'overwhelmed' ? '😵' : '😐'}
+                        currentEmotion.mood === 'sad' ? '😢' :
+                          currentEmotion.mood === 'angry' ? '😠' :
+                            currentEmotion.mood === 'anxious' ? '😰' :
+                              currentEmotion.mood === 'calm' ? '😌' :
+                                currentEmotion.mood === 'excited' ? '😃' :
+                                  currentEmotion.mood === 'tired' ? '😴' :
+                                    currentEmotion.mood === 'frustrated' ? '😤' :
+                                      currentEmotion.mood === 'focused' ? '🧐' :
+                                        currentEmotion.mood === 'overwhelmed' ? '😵' : '😐'}
                     </span>
                     <div>
                       <h3 className="text-lg font-medium capitalize">{currentEmotion.mood}</h3>
@@ -118,7 +126,25 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <JournalInput onEmotionDetected={setCurrentEmotion} />
+          <JournalInput
+            onEmotionDetected={setCurrentEmotion}
+            onTextChange={setCurrentText}
+          />
+        </div>
+
+        {/* Ethical AI Dashboard */}
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold mb-4">Ethical AI Insights</h2>
+          <p className="text-muted-foreground mb-6">
+            Transparent and fair emotion detection with SHAP, LIME, and Fairlearn integration.
+          </p>
+          <EthicalAIDashboard
+            emotionState={currentEmotion}
+            textInput={currentText}
+            faceDetectionData={faceDetectionData}
+            eyeTrackingData={eyeTrackingData}
+            realTime={true}
+          />
         </div>
       </main>
     </>

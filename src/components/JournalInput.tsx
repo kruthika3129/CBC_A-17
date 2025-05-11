@@ -24,9 +24,10 @@ interface JournalInputProps {
   className?: string;
   style?: React.CSSProperties;
   onEmotionDetected?: (emotion: EmotionState) => void;
+  onTextChange?: (text: string) => void;
 }
 
-const JournalInput: React.FC<JournalInputProps> = ({ className, style, onEmotionDetected }) => {
+const JournalInput: React.FC<JournalInputProps> = ({ className, style, onEmotionDetected, onTextChange }) => {
   const { toast } = useToast();
   const aiService = AIService.getInstance();
 
@@ -36,11 +37,17 @@ const JournalInput: React.FC<JournalInputProps> = ({ className, style, onEmotion
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const handleJournalChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setJournalText(e.target.value);
+    const newText = e.target.value;
+    setJournalText(newText);
 
     // Reset detected emotion when text changes
     if (detectedEmotion) {
       setDetectedEmotion(null);
+    }
+
+    // Call the onTextChange callback if provided
+    if (onTextChange) {
+      onTextChange(newText);
     }
   };
 
@@ -154,11 +161,10 @@ const JournalInput: React.FC<JournalInputProps> = ({ className, style, onEmotion
             {sentimentEmojis.map((item, index) => (
               <button
                 key={item.label}
-                className={`flex flex-col items-center p-2 rounded-lg transition-all ${
-                  selectedSentiment === index
-                    ? 'bg-primary/10 ring-2 ring-primary'
-                    : 'hover:bg-primary/5'
-                }`}
+                className={`flex flex-col items-center p-2 rounded-lg transition-all ${selectedSentiment === index
+                  ? 'bg-primary/10 ring-2 ring-primary'
+                  : 'hover:bg-primary/5'
+                  }`}
                 onClick={() => setSelectedSentiment(index)}
               >
                 <span className="text-2xl">{item.emoji}</span>
@@ -174,15 +180,15 @@ const JournalInput: React.FC<JournalInputProps> = ({ className, style, onEmotion
             <div className="flex items-center gap-2 mt-1">
               <span className="text-xl">
                 {detectedEmotion.mood === 'happy' ? '😊' :
-                 detectedEmotion.mood === 'sad' ? '😢' :
-                 detectedEmotion.mood === 'angry' ? '😠' :
-                 detectedEmotion.mood === 'anxious' ? '😰' :
-                 detectedEmotion.mood === 'calm' ? '😌' :
-                 detectedEmotion.mood === 'excited' ? '😃' :
-                 detectedEmotion.mood === 'tired' ? '😴' :
-                 detectedEmotion.mood === 'frustrated' ? '😤' :
-                 detectedEmotion.mood === 'focused' ? '🧐' :
-                 detectedEmotion.mood === 'overwhelmed' ? '😵' : '😐'}
+                  detectedEmotion.mood === 'sad' ? '😢' :
+                    detectedEmotion.mood === 'angry' ? '😠' :
+                      detectedEmotion.mood === 'anxious' ? '😰' :
+                        detectedEmotion.mood === 'calm' ? '😌' :
+                          detectedEmotion.mood === 'excited' ? '😃' :
+                            detectedEmotion.mood === 'tired' ? '😴' :
+                              detectedEmotion.mood === 'frustrated' ? '😤' :
+                                detectedEmotion.mood === 'focused' ? '🧐' :
+                                  detectedEmotion.mood === 'overwhelmed' ? '😵' : '😐'}
               </span>
               <span className="capitalize">{detectedEmotion.mood}</span>
               <span className="text-xs text-muted-foreground ml-auto">

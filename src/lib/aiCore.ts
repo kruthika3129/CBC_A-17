@@ -6,6 +6,7 @@
 
 export interface FacialEmbedding {
   embedding: number[]; // e.g., 128-dim vector
+  confidence?: number; // 0-1 confidence score
   timestamp: number;
 }
 
@@ -717,7 +718,7 @@ export class EmotionAlertEngine {
     // Count emotion changes
     let changes = 0;
     for (let i = 1; i < recentStates.length; i++) {
-      if (recentStates[i].mood !== recentStates[i-1].mood) {
+      if (recentStates[i].mood !== recentStates[i - 1].mood) {
         changes++;
       }
     }
@@ -759,7 +760,7 @@ export class EmotionAlertEngine {
 
     // If most recent states are positive and there are enough of them
     if (positiveEmotions.length >= 4 &&
-        ['happy', 'excited', 'calm', 'focused'].includes(recentStates[recentStates.length - 1].mood)) {
+      ['happy', 'excited', 'calm', 'focused'].includes(recentStates[recentStates.length - 1].mood)) {
 
       this.lastAlertTime.positive_trend = now;
 
@@ -882,9 +883,9 @@ export class EmotionAlertEngine {
 // Types for explainability features
 export interface ExplainabilityFeatures {
   facialFeatures?: {
-    gaze?: 'upward' | 'downward' | 'direct' | 'averted';
+    gaze?: 'upward' | 'downward' | 'direct' | 'averted' | 'right' | 'left';
     expression?: string;
-    dominantRegions?: Array<{region: string, contribution: number}>;
+    dominantRegions?: Array<{ region: string, contribution: number }>;
   };
   voiceFeatures?: {
     pitchDescription?: 'high' | 'low' | 'medium' | 'variable';
@@ -899,6 +900,17 @@ export interface ExplainabilityFeatures {
     heartRateDescription?: 'elevated' | 'normal' | 'low';
     activityLevel?: 'active' | 'sedentary' | 'moderate';
   };
+  eyeTrackingFeatures?: {
+    blinkRate?: number;
+    pupilDilation?: number;
+    focusPoint?: string;
+  };
+  demographics?: {
+    age?: string;
+    gender?: string;
+    ethnicity?: string;
+    [key: string]: string | undefined;
+  };
 }
 
 // Visual representation for child-friendly explanations
@@ -911,7 +923,7 @@ export interface ChildFriendlyVisual {
 // Attribution data for visualization
 export interface AttributionData {
   facialRegions?: Record<string, number>; // Region name -> contribution score
-  textHighlights?: Array<{word: string, score: number}>;
+  textHighlights?: Array<{ word: string, score: number }>;
   voiceAttributes?: Record<string, number>; // Feature name -> contribution score
   wearableAttributes?: Record<string, number>; // Feature name -> contribution score
 }
@@ -1052,12 +1064,12 @@ export class ExplainabilityModule {
       if (features.wearableFeatures.heartRateDescription) {
         attributionData.wearableAttributes['heartRate'] =
           features.wearableFeatures.heartRateDescription === 'elevated' ? 0.8 :
-          features.wearableFeatures.heartRateDescription === 'low' ? 0.6 : 0.4;
+            features.wearableFeatures.heartRateDescription === 'low' ? 0.6 : 0.4;
       }
       if (features.wearableFeatures.activityLevel) {
         attributionData.wearableAttributes['activity'] =
           features.wearableFeatures.activityLevel === 'active' ? 0.7 :
-          features.wearableFeatures.activityLevel === 'sedentary' ? 0.5 : 0.3;
+            features.wearableFeatures.activityLevel === 'sedentary' ? 0.5 : 0.3;
       }
     }
 
@@ -1535,7 +1547,7 @@ export class EmotionTimeCapsule {
     // Count changes in emotion
     let changes = 0;
     for (let i = 1; i < sortedStates.length; i++) {
-      if (sortedStates[i].mood !== sortedStates[i-1].mood) {
+      if (sortedStates[i].mood !== sortedStates[i - 1].mood) {
         changes++;
       }
     }
@@ -1703,7 +1715,7 @@ export class TemplateLLMSummarizer {
     const transitions: { from: EmotionCategory, to: EmotionCategory, count: number }[] = [];
 
     for (let i = 1; i < allEmotions.length; i++) {
-      const from = allEmotions[i-1].emotion;
+      const from = allEmotions[i - 1].emotion;
       const to = allEmotions[i].emotion;
 
       if (from !== to) {
@@ -1959,7 +1971,7 @@ export class TemplateLLMSummarizer {
     // Count changes in emotion
     let changes = 0;
     for (let i = 1; i < sortedEmotions.length; i++) {
-      if (sortedEmotions[i].emotion !== sortedEmotions[i-1].emotion) {
+      if (sortedEmotions[i].emotion !== sortedEmotions[i - 1].emotion) {
         changes++;
       }
     }

@@ -1,73 +1,93 @@
-# Welcome to your Lovable project
+# 🌟 PsyTrack: Empowering Children's Emotional Journey 🌟
 
-## Project info
+![PsyTrack Banner](assets/banner.jpg)
 
-**URL**: https://lovable.dev/projects/5052bf78-2653-44fc-b775-2bc00198c8b0
+## 💫 Transform How Children Understand Their Emotions
 
-## How can I edit this code?
+**PsyTrack isn't just another app—it's a lifeline for children struggling to navigate their emotional world.**
 
-There are several ways of editing your application.
+Every day, countless children face the challenge of understanding and expressing their emotions. For neurodiverse children, this challenge can feel insurmountable. PsyTrack bridges this gap with groundbreaking technology that gives children a voice when words fail them.
 
-**Use Lovable**
+> "For the first time, my son could show me how he was feeling instead of having a meltdown. PsyTrack has transformed our family's life." — Parent of a 7-year-old with autism
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5052bf78-2653-44fc-b775-2bc00198c8b0) and start prompting.
+## ✨ Why PsyTrack Will Change Your Child's Life
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🔍 Real-time Emotion Detection
+Our advanced AI recognizes emotions through facial expressions, voice patterns, and journal entries—even when children can't articulate their feelings.
 
-**Use your preferred IDE**
+### 🧠 Ethical AI You Can Trust
+With transparent explanations using SHAP, LIME, and Fairlearn, you'll always understand how and why our AI makes its recommendations—no black boxes here.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 🌈 Child-Friendly Interface
+Designed with and for children, our interface uses colors, emojis, and animations that make emotional learning engaging rather than overwhelming.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 👨‍👩‍👧‍👦 Family Connection
+Share insights with family members and therapists, creating a support network that understands your child's unique emotional landscape.
 
-Follow these steps:
+### 📊 Progress Visualization
+Watch your child's emotional growth through intuitive timelines and charts, celebrating progress and identifying patterns together.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🚀 Features That Make a Difference
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- **Emotion Timeline**: Track emotional patterns over time to identify triggers and progress
+- **Journal Input**: Express feelings through writing when speaking is difficult
+- **Face Detection**: Recognize emotions in real-time through facial expressions
+- **Therapist Panel**: Share insights directly with mental health professionals
+- **Alert System**: Receive notifications for significant emotional changes
+- **Ethical AI Dashboard**: Understand exactly how our AI works with complete transparency
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 💙 Join Thousands of Families Finding Their Voice
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+PsyTrack isn't just technology—it's a community of families, therapists, and educators committed to helping children thrive emotionally.
+
+When you choose PsyTrack, you're not just downloading an app. You're giving your child the tools to understand themselves and communicate their needs. You're giving yourself insight into your child's inner world. You're giving your family a new way to connect.
+
+> "I used to feel so alone with my feelings. Now I can show my mom when I'm getting upset before it gets too big." — 9-year-old PsyTrack user
+
+## 🌱 Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/psytrack.git
+
+# Navigate to the project directory
+cd psytrack
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 💖 Join Our Mission
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Every child deserves to be understood. Every child deserves to understand themselves. With PsyTrack, we're making that possible—one emotion at a time.
 
-**Use GitHub Codespaces**
+**Download PsyTrack today and begin the journey toward emotional understanding and connection.**
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🤝 Support & Community
 
-## What technologies are used for this project?
+- **Website**: [psytrack.io](https://psytrack.io)
+- **Community Forum**: [community.psytrack.io](https://community.psytrack.io)
+- **Email Support**: support@psytrack.io
+- **Discord**: [Join our server](https://discord.gg/psytrack)
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🔧 Technical Details
 
-## How can I deploy this project?
+Built with cutting-edge technology:
 
-Simply open [Lovable](https://lovable.dev/projects/5052bf78-2653-44fc-b775-2bc00198c8b0) and click on Share -> Publish.
+- **Frontend**: React, TypeScript, Tailwind CSS, shadcn/ui
+- **AI**: TensorFlow.js, face-api.js, SHAP, LIME, Fairlearn
+- **Data Visualization**: Recharts, Visx
+- **Deployment**: Vite, Vercel
 
-## Can I connect a custom domain to my Lovable project?
+## 📜 License
 
-Yes, you can!
+PsyTrack is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+*Made with ❤️ by the PsyTrack team*
